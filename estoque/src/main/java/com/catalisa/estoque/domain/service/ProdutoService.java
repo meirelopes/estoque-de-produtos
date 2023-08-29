@@ -23,6 +23,12 @@ public class ProdutoService {
 
     }
 
+    public List<ProdutoModel> listarPorNome(String nome) {
+
+        return produtoRepository.findTodosByNomeContaining(nome);
+
+    }
+
     public ProdutoModel buscar(Long produtoId) {
         Optional<ProdutoModel> produtoOptional = produtoRepository.findById(produtoId);
 

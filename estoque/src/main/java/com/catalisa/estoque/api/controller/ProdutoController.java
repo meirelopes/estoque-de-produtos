@@ -5,6 +5,7 @@ import com.catalisa.estoque.domain.service.ProdutoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +54,19 @@ as suas requisições
         return produtoService.listar();
 
     }
+
+    @GetMapping(path = "/por-nome")
+    public ResponseEntity<List<ProdutoModel>> listarPorNome(@RequestParam("nome") String nome) {
+        List<ProdutoModel> produtos = produtoService.listarPorNome(nome);
+
+        if (produtos.isEmpty()) {
+
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(produtos);
+    }
+
 
     @GetMapping(path = "/{produtoId}")
     public ProdutoModel buscar(@PathVariable Long produtoId) {
