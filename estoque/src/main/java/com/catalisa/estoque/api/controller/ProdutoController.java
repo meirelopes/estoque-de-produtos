@@ -1,5 +1,10 @@
 package com.catalisa.estoque.api.controller;
 
+import com.catalisa.estoque.api.assembler.ProdutoDtoAssembler;
+import com.catalisa.estoque.api.disassembler.ProdutoDtoDisassembler;
+import com.catalisa.estoque.api.dto.entrada.ProdutoEntrada;
+import com.catalisa.estoque.api.dto.saida.produto.ProdutoDto;
+import com.catalisa.estoque.api.dto.saida.produto.ProdutoResumidoDto;
 import com.catalisa.estoque.domain.model.ProdutoModel;
 import com.catalisa.estoque.domain.service.ProdutoService;
 import org.springframework.beans.BeanUtils;
@@ -48,16 +53,23 @@ as suas requisições
     @Autowired
     ProdutoService produtoService;
 
-    @GetMapping
-    public List<ProdutoModel> listar() {
+    @Autowired
+    ProdutoDtoAssembler produtoDtoAssembler;
 
-        return produtoService.listar();
+    @Autowired
+    ProdutoDtoDisassembler produtoDtoDisassembler;
+
+    @GetMapping
+    public List<ProdutoResumidoDto> listar() {
+
+        return produtoDtoAssembler.toCollectionProdutoResumidoDto(produtoService.listar());
 
     }
 
     @GetMapping(path = "/por-nome")
-    public ResponseEntity<List<ProdutoModel>> listarPorNome(@RequestParam("nome") String nome) {
-        List<ProdutoModel> produtos = produtoService.listarPorNome(nome);
+    public ResponseEntity<List<ProdutoResumidoDto>> listarPorNome(@RequestParam("nome") String nome) {
+        List<ProdutoResumidoDto> produtos = produtoDtoAssembler
+                .toCollectionProdutoResumidoDto(produtoService.listarPorNome(nome));
 
         if (produtos.isEmpty()) {
 
@@ -69,26 +81,38 @@ as suas requisições
 
 
     @GetMapping(path = "/{produtoId}")
-    public ProdutoModel buscar(@PathVariable Long produtoId) {
+    public ProdutoDto buscar(@PathVariable Long produtoId) {
 
-        return produtoService.buscar(produtoId);
+        ProdutoDto produtoDto =  produtoDtoAssembler.toDto(produtoService.buscar(produtoId));
+        return produtoDto;
 
     }
 
     @PostMapping
-    public ProdutoModel adicionar(@RequestBody ProdutoModel produtoModel) {
+    public ProdutoDto adicionar(@RequestBody ProdutoEntrada produtoEntrada) {
 
-        return produtoService.salvar(produtoModel);
+        ProdutoModel produtoModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
+
+        ProdutoDto produtoDto = produtoDtoAssembler.toDto(produtoService.salvar(produtoModel));
+
+        return produtoDto;
 
     }
     @PutMapping(path = "/{produtoId}")
-    public ProdutoModel atualizar(@PathVariable Long produtoId, @RequestBody ProdutoModel produto) {
+    public ProdutoDto atualizar(@PathVariable Long produtoId, @RequestBody ProdutoEntrada produtoEntrada) {
+
+        ProdutoModel produtoEntradaToModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
 
         ProdutoModel produtoAtual = produtoService.buscar(produtoId);
-        BeanUtils.copyProperties(produto, produtoAtual, "id");
-        return produtoService.salvar(produtoAtual);
+
+        BeanUtils.copyProperties(produtoEntradaToModel, produtoAtual, "id");
+
+        ProdutoDto produtoDto = produtoDtoAssembler.toDto(produtoService.salvar(produtoAtual));
+
+        return produtoDto;
 
     }
+
     @DeleteMapping(path = "/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long produtoId) {
