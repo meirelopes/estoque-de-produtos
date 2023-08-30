@@ -16,8 +16,16 @@ public class ProdutoDto {
 
     private BigDecimal preco;
 
+    private Integer quantidade;
+
+    private String marca;
+
+    private String categoria;
+
+    private String tamanho;
+
     private String descricao;
 
-    private Integer quantidade;
+
 
 }

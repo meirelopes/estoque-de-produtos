@@ -21,9 +21,18 @@ public class ProdutoModel {
     private BigDecimal preco;
 
     @Column(nullable = false)
-    private String descricao;
+    private Integer quantidade;
 
     @Column(nullable = false)
-    private Integer quantidade;
+    private String marca;
+
+    @Column
+    private String categoria;
+
+    @Column
+    private String tamanho;
+
+    @Column
+    private String descricao;
 
 }

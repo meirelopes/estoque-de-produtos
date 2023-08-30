@@ -13,8 +13,8 @@ public class ProdutoResumidoDto {
 
     private String nome;
 
-   // private BigDecimal preco;
+    private BigDecimal preco;
 
-  //  private Integer quantidade;
+    private Integer quantidade;
 
 }

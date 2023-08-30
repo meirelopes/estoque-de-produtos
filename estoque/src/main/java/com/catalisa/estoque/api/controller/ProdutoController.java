@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,7 @@ descrição, preço e quantidade que deseja armazenar.
 ● Permitir a obtenção da lista de todos os produtos ou de um produto
 específico por ID ou nome.
 ● Possibilitar a exclusão de produtos.
+
 ● Implementar tratamento de erros e exceções apropriados.
 ● Implementar testes unitários com cobertura de 100%.
 ● Documentar a API com o Swagger, tornando-a compreensível para outros
@@ -89,7 +91,7 @@ as suas requisições
     }
 
     @PostMapping
-    public ProdutoDto adicionar(@RequestBody ProdutoEntrada produtoEntrada) {
+    public ProdutoDto adicionar(@RequestBody @Valid ProdutoEntrada produtoEntrada) {
 
         ProdutoModel produtoModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
 
@@ -99,7 +101,7 @@ as suas requisições
 
     }
     @PutMapping(path = "/{produtoId}")
-    public ProdutoDto atualizar(@PathVariable Long produtoId, @RequestBody ProdutoEntrada produtoEntrada) {
+    public ProdutoDto atualizar(@PathVariable Long produtoId, @RequestBody @Valid ProdutoEntrada produtoEntrada) {
 
         ProdutoModel produtoEntradaToModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
 
