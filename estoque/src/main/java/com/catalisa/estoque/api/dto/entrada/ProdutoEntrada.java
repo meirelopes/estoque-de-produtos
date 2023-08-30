@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Getter
@@ -14,10 +15,10 @@ public class ProdutoEntrada {
     @NotBlank
     private String nome;
 
-    @NotBlank
+    @PositiveOrZero
     private BigDecimal preco;
 
-    @NotBlank
+    @PositiveOrZero
     private Integer quantidade;
 
     @NotBlank

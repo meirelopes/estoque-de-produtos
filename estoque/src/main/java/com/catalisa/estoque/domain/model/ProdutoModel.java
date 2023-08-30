@@ -3,6 +3,8 @@ package com.catalisa.estoque.domain.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Data
@@ -15,15 +17,19 @@ public class ProdutoModel {
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank
     private String nome;
 
     @Column(nullable = false)
+    @PositiveOrZero
     private BigDecimal preco;
 
     @Column(nullable = false)
+    @PositiveOrZero
     private Integer quantidade;
 
     @Column(nullable = false)
+    @NotBlank
     private String marca;
 
     @Column

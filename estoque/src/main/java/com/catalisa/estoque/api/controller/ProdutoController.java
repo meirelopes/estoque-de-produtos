@@ -90,6 +90,7 @@ as suas requisições
 
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ProdutoDto adicionar(@RequestBody @Valid ProdutoEntrada produtoEntrada) {
 
