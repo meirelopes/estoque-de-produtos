@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -48,7 +47,6 @@ public class ProdutoControllerTesteMockMvc {
     public void deveRetornarStatusCreatedEUmProduto_QuandoCadastrarUmProduto() throws Exception {
 
         ProdutoEntrada produtoEntrada = new ProdutoEntrada();
-        produtoEntrada.setId(1L);
         produtoEntrada.setNome("Escova de Cabelo");
         produtoEntrada.setMarca("Loreal");
         produtoEntrada.setPreco(new BigDecimal(30));
@@ -64,7 +62,7 @@ public class ProdutoControllerTesteMockMvc {
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(produtoModel)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.id").value(produtoModel.getId()))
                 .andExpect(jsonPath("$.nome").value("Escova de Cabelo"))
                 .andExpect(jsonPath("$.marca").value("Loreal"))
                 .andExpect(jsonPath("$.preco").value(30))

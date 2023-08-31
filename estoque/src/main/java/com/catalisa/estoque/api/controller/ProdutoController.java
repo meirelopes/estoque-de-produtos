@@ -5,8 +5,11 @@ import com.catalisa.estoque.api.disassembler.ProdutoDtoDisassembler;
 import com.catalisa.estoque.api.dto.entrada.ProdutoEntrada;
 import com.catalisa.estoque.api.dto.saida.produto.ProdutoDto;
 import com.catalisa.estoque.api.dto.saida.produto.ProdutoResumidoDto;
+import com.catalisa.estoque.api.openapi.controller.ProdutoControllerOpenApi;
 import com.catalisa.estoque.domain.model.ProdutoModel;
 import com.catalisa.estoque.domain.service.ProdutoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
-public class ProdutoController {
+public class ProdutoController implements ProdutoControllerOpenApi {
 
     /*
     Sistema de Gerenciamento de Estoque
@@ -67,7 +70,6 @@ as suas requisições
         return produtoDtoAssembler.toCollectionProdutoResumidoDto(produtoService.listar());
 
     }
-
     @GetMapping(path = "/por-nome")
     public ResponseEntity<List<ProdutoResumidoDto>> listarPorNome(@RequestParam("nome") String nome) {
         List<ProdutoResumidoDto> produtos = produtoDtoAssembler
@@ -85,11 +87,9 @@ as suas requisições
     @GetMapping(path = "/{produtoId}")
     public ProdutoDto buscar(@PathVariable Long produtoId) {
 
-        ProdutoDto produtoDto =  produtoDtoAssembler.toDto(produtoService.buscar(produtoId));
+        ProdutoDto produtoDto = produtoDtoAssembler.toDto(produtoService.buscar(produtoId));
         return produtoDto;
-
     }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ProdutoDto adicionar(@RequestBody @Valid ProdutoEntrada produtoEntrada) {
@@ -101,7 +101,7 @@ as suas requisições
         return produtoDto;
 
     }
-    @PutMapping(path = "/{produtoId}")
+   @PutMapping(path = "/{produtoId}")
     public ProdutoDto atualizar(@PathVariable Long produtoId, @RequestBody @Valid ProdutoEntrada produtoEntrada) {
 
         ProdutoModel produtoEntradaToModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
@@ -115,7 +115,6 @@ as suas requisições
         return produtoDto;
 
     }
-
     @DeleteMapping(path = "/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long produtoId) {
