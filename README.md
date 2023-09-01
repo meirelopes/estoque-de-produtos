@@ -79,13 +79,13 @@ O pacote core é um componente fundamental da aplicação, onde são mantidas as
 
 ### Pacote test
 
-- `apitest`: define as exceções personalizadas.
+- `apitest`: contém as classes responsáveis pelos testes de API. É utilizado o banco de dados PostgreSQL para a execução dos testes.
   
-- `integracaotest`: define as exceções personalizadas.
+- `integracaotest`: contém as classes responsáveis pelos testes de integração.  É utilizado o banco de dados PostgreSQL para a execução dos testes.
 
-- `mockmvc`: define as exceções personalizadas.
+- `mockmvc`: contém as classes de testes utilizando o @WebMvcTest para testar a classe controller.
 
-- `util`: define as exceções personalizadas.
+- `util`: Contém as classes utilitárias, que são projetadas para fornecer funcionalidades comuns ou auxiliares que podem ser usadas em toda a aplicação. 
 
   
 ## Detalhes do Projeto:
