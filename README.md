@@ -100,7 +100,7 @@ A documentação da API foi descrita obedecendo a especificação OpenAPI e pode
 
 ## Postman
 
-Foi utilizado o Postman para  testar as solicitações HTTP, como GET, POST, PUT, DELETE e outros. Acessar em:  [Postman](https://www.postman.com/)
+Foi utilizado o Postman para  testar as solicitações HTTP, como GET, POST, PUT, DELETE e outros. Acessar em:  [Postman](https://www.postman.com/).
 O arquivo da Collection gerenciamento-de-estoque pode ser acessado por meio do link: [gerenciamento-de-estoque](https://github.com/meirelopes/estoque-de-produtos/blob/main/estoque/gerenciamento-de-estoque.postman_collection.json)
 
 ## Sugestões
