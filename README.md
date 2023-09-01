@@ -67,8 +67,8 @@ O pacote core é um componente fundamental da aplicação, onde são mantidas as
 
 ### Pacote Domain
 
-- `exception`: define our custom exceptions and a global exception handler for dealing with Spring's exceptions.
-
+- `exception`: define as exceções personalizadas.
+  
 - `model`: onde nossas entidades são definidas, usando anotações JPA (Jacarta) para ORM com nosso banco de dados SQL.
   
 - `repository`: neste pacote, tratamos do acesso a dados usando interfaces fornecidas pelo Spring Data JPA.
@@ -76,6 +76,17 @@ O pacote core é um componente fundamental da aplicação, onde são mantidas as
 - `service`: onde reside nossa lógica de negócios. Aqui validamos nossos dados, tratamos de exceções de negócios e gerenciamos o acesso ao nosso banco de dados SQL por meio de repositórios.
   
 - `Application.java`: esta é a classe principal para executar nosso projeto. Ele inicializa nosso aplicativo Spring e conecta todos os componentes.
+
+### Pacote test
+
+- `apitest`: define as exceções personalizadas.
+  
+- `integracaotest`: define as exceções personalizadas.
+
+- `mockmvc`: define as exceções personalizadas.
+
+- `util`: define as exceções personalizadas.
+
   
 ## Detalhes do Projeto:
 
