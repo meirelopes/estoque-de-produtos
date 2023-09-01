@@ -22,7 +22,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +36,7 @@ public class ProdutoControllerTesteMockMvc {
     MockMvc mockMvc;
     @MockBean
     ProdutoService produtoService;
+
     @Autowired
     ProdutoDtoDisassembler produtoDtoDisassembler;
     @Autowired
@@ -44,7 +47,7 @@ public class ProdutoControllerTesteMockMvc {
     ModelMapper modelMapper;
 
     @Test
-    public void deveRetornarStatusCreatedEUmProduto_QuandoCadastrarUmProduto() throws Exception {
+    public void deveRetornarStatusCreatedEUmProduto_QuandoChamarCadastrarUmProduto() throws Exception {
 
         ProdutoEntrada produtoEntrada = new ProdutoEntrada();
         produtoEntrada.setNome("Escova de Cabelo");
@@ -81,79 +84,8 @@ public class ProdutoControllerTesteMockMvc {
         Mockito.verify(produtoService, Mockito.times(1)).excluir(produtoId);
     }
 
-
-
-   /* @Test
-    public void deveRetornarStatusOkEUmProduto_QuandoAtualizarUmProduto2() throws Exception {
-
-        ProdutoModel produtoModel = produtoService.buscar(1L);
-
-        ProdutoEntrada produtoEntrada = new ProdutoEntrada();
-        produtoEntrada.setNome("Escova de Cabelo");
-        produtoEntrada.setMarca("Loreal");
-        produtoEntrada.setPreco(new BigDecimal(30));
-        produtoEntrada.setQuantidade(5);
-        produtoEntrada.setCategoria("Escovas");
-        produtoEntrada.setTamanho("20 cm");
-        produtoEntrada.setDescricao("Sem descrição");
-
-        produtoModel = produtoDtoDisassembler.toDomainModel(produtoEntrada);
-
-        ProdutoDto produtoDto = produtoDtoAssembler.toDto(produtoModel);
-
-        Mockito.when(produtoService.salvar(produtoModel)).thenReturn(produtoModel);
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/produtos/{produtoId}", 1)
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(produtoModel)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.nome").value("Escova de Cabelo"))
-                .andExpect(jsonPath("$.marca").value("Loreal"))
-                .andExpect(jsonPath("$.preco").value(30))
-                .andExpect(jsonPath("$.quantidade").value(5));
-    }
     @Test
-    public void deveRetornarStatusOkEUmProduto_QuandoAtualizarUmProduto() throws Exception {
-        // Primeiro, buscar o produto existente a ser atualizado
-        ProdutoModel produtoModelExistente = new ProdutoModel();
-
-        // Criar um objeto ProdutoEntrada com os novos dados
-        ProdutoEntrada produtoEntrada = new ProdutoEntrada();
-        produtoEntrada.setId(1L);
-        produtoEntrada.setNome("Escova de Cabelo");
-        produtoEntrada.setMarca("Loreal");
-        produtoEntrada.setPreco(new BigDecimal(30));
-        produtoEntrada.setQuantidade(5);
-        produtoEntrada.setCategoria("Escovas");
-        produtoEntrada.setTamanho("20 cm");
-        produtoEntrada.setDescricao("Sem descrição");
-
-        // Converter o ProdutoEntrada em ProdutoModel usando o disassembler
-        ProdutoModel produtoModelNovo = produtoDtoDisassembler.toDomainModel(produtoEntrada);
-
-        // Copiar os atributos do novo produto para o produto existente
-        BeanUtils.copyProperties(produtoModelNovo, produtoModelExistente);
-        System.out.println(produtoModelExistente.getNome());
-        System.out.println(produtoModelNovo.getNome());
-
-        // Configurar o comportamento do mock do serviço
-        Mockito.when(produtoService.salvar(produtoModelExistente)).thenReturn(produtoModelExistente);
-
-        // Fazer a requisição PUT e verificar o resultado
-        mockMvc.perform(MockMvcRequestBuilders.put("/produtos/{produtoId}", 1)
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(produtoEntrada)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.nome").value("Escova de Cabelo"))
-                .andExpect(jsonPath("$.marca").value("Loreal"))
-                .andExpect(jsonPath("$.preco").value(30))
-                .andExpect(jsonPath("$.quantidade").value(5));
-    }*/
-
-    @Test
-    public void deveRetornarStatusOkEUmaListaDeProdutos_QuandoListarProdutosw() throws Exception {
+    public void deveRetornarStatusOkEUmaListaDeProdutos_QuandoChamarListarProdutos() throws Exception {
 
         List<ProdutoResumidoDto> produtosResumidos = new ArrayList<>();
 
@@ -170,6 +102,28 @@ public class ProdutoControllerTesteMockMvc {
 
         Mockito.when(produtoService.listar())
                 .thenReturn(produtoModels);
+
+    }
+    @Test
+    public void deveDeletarProdutoEStatusNoContent_QuandoChamarExcluirProduto() throws Exception {
+
+        ProdutoModel produto = new ProdutoModel();
+        produto.setId(1L);
+        produto.setNome("Batom");
+        produto.setPreco(new BigDecimal(30));
+        produto.setQuantidade(1);
+        produto.setMarca("Boticário");
+
+        Mockito.when(produtoService.salvar(any())).thenReturn(produto);
+
+        Mockito.when(this.produtoService.buscar(1L)).thenReturn(produto);
+
+        Mockito.doNothing().when(produtoService).excluir(produto.getId());
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/produtos/" + produto.getId() ,produto.getId() ))
+                .andExpect(status().isNoContent());
+
+        Mockito.verify(produtoService, Mockito.times(1)).excluir(produto.getId());
 
     }
 
