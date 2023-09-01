@@ -25,7 +25,7 @@ Esta é uma API de treinamento desenvolvida para a gestão de estoque e que tem 
 
 - **Java 11**: Leveraging the latest LTS version of Java, improving readability and efficiency.
 
-- **Spring Boot 2.7.15**: Spring Boot, reponsável por aumentar a produtividade do desenvolvedor com sua configuração automática disponíve em  [Spring Initializr](https://start.spring.io/)
+- **Spring Boot 2.7.15**: Spring Boot, reponsável por aumentar a produtividade do desenvolvedor com sua configuração automática disponível em  [Spring Initializr](https://start.spring.io/)
   
 - **Spring Data JPA**: Abstração da camada de acesso ao banco de dados, reduzindo o código padrão.
   
@@ -85,6 +85,11 @@ O projeto utiliza um banco de dados postgreSQL para ambiente de desenvolvimento 
 ## Documentação
 
 A documentação da API foi descrita obedecendo a especificação OpenAPI e pode ser encontrada na UI do Swagger. Para visualizá-lo, visite: Swagger UI.: [Swagger UI](http://localhost:8080/swagger-ui.html).
+
+## Postman
+
+Foi utilizado o Postman para  testar as solicitações HTTP, como GET, POST, PUT, DELETE e outros. Acessar em:  [Postman](https://www.postman.com/)
+O arquivo da Collection gerenciamento-de-estoque pode ser acessado por meio do link: 
 
 ## Sugestões
 
