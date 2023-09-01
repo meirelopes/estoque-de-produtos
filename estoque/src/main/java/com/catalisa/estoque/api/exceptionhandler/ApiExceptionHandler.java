@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 
 @ControllerAdvice // especialização da anotação @Component, que permite manipular exceções
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler { // classe de exceptionhandler global
