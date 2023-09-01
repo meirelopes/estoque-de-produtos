@@ -18,12 +18,13 @@ Esta é uma API de treinamento desenvolvida para a gestão de estoque e que tem 
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Detalhes do Projeto](#detalhes-do-projeto)
 - [Documentação](#documentação)
+- [Postman](#postman)
 - [Sugestões](#sugestões)
 - [Autora](#autora)
 
 ## Principais Tecnologias:
 
-- **Java 11**: Leveraging the latest LTS version of Java, improving readability and efficiency.
+- **Java 11**
 
 - **Spring Boot 2.7.15**: Spring Boot, reponsável por aumentar a produtividade do desenvolvedor com sua configuração automática disponível em  [Spring Initializr](https://start.spring.io/)
   
