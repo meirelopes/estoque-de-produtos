@@ -108,10 +108,9 @@ O arquivo da Collection gerenciamento-de-estoque pode ser acessado por meio do l
 Se você encontrar algum problema ou tiver sugestões de melhorias, não hesite em me contactar por meio do e-mail jucemeirelopes@gmail.com.
 
 ## Autora
-
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/meirelopes"><img src="https://github.com/meirelopes/alura-git/assets/105396487/e5fd7acb-f3d7-4283-8f85-9b942e8ec074" width="100px;" alt=""/><br/><strong>Jucemeire Lopes</strong></a><br/><a href="https://www.linkedin.com/in/jucemeirelopes/">LinkedIn</a></td>
+    <td align="center"><a href="https://github.com/meirelopes"><img src="https://avatars.githubusercontent.com/u/105396487?v=4" width="100px;" alt=""/><br/><strong>Jucemeire Lopes</strong></a><br/><a href="https://www.linkedin.com/in/jucemeirelopes/">LinkedIn</a></td>
        
   </tr>
 </table>
